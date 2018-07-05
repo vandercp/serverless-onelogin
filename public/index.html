@@ -76,9 +76,11 @@
         </ul>
         <div class='four columns signin-bar'>
             <span class='navbar-padding u-pull-right'>
-                <span class="g-signin2" data-onsuccess="googleSignIn"></span>
+                <!--<span class="g-signin2" data-onsuccess="googleSignIn"></span>-->
+                <a href="#" class="btn" id="login">ONE-LOGIN</a>
             </span>
         </div>
+        <div id="loginResult"></div>
     </div>
     <div class='view-container container'>
     </div>
@@ -118,6 +120,8 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="/javascript/oidc-client.min.js"></script>
+<script type="text/javascript" src="/javascript/main.js"></script>
 <script type="text/javascript">
     $(window).ready(learnjs.appOnReady);
 </script>

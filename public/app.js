@@ -5,6 +5,13 @@ var learnjs = {
 };
 
 
+learnjs.appOnReady = function () {
+    window.onhashchange = function () {
+        learnjs.showView(window.location.hash);
+    };
+    learnjs.showView(window.location.hash);
+    learnjs.identity.done(learnjs.addProfileLink);
+}
 learnjs.problemView = function (data) {
     var problemNumber = parseInt(data, 10);
     var view = $('.templates .problem-view').clone();
@@ -69,7 +76,7 @@ learnjs.buildCorrectFlash = function (problemNum) {
     if (problemNum < learnjs.problems.length) {
         link.attr('href', '#problem-' + (problemNum + 1));
     } else {
-        link.attr('href', '');
+        link.attr('href', '#    ');
         link.text("You're Finished!");
     }
     return correctFlash;
@@ -94,14 +101,6 @@ learnjs.showView = function (hash) {
 }
 learnjs.triggerEvent = function (name, args) {
     $('.view-container>*').trigger(name, args);
-}
-learnjs.appOnReady = function () {
-    window.onhashchange = function () {
-        learnjs.showView(window.location.hash);
-    };
-    learnjs.showView(window.location.hash);
-    learnjs.identity.done(learnjs.addProfileLink);
-
 }
 learnjs.addProfileLink = function (profile) {
     var link = learnjs.template('profile-link');
@@ -168,7 +167,8 @@ function refresh() {
     }).then(function (userUpdate) {
         var creds = AWS.config.credentials;
         var newToken = userUpdate.getAuthResponse().id_token;
-        creds.params.Logins['accounts.google.com'] = newToken;
+        // creds.params.Logins['accounts.google.com'] = newToken;
+        creds.params.Logins['openid-connect-eu.onelogin.com/oidc'] = newToken;
         return learnjs.awsRefresh();
     });
 }
